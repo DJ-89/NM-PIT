@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- Tab Switching Logic ---
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding content
+            btn.classList.add('active');
+            const targetId = btn.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+    // ---------------------------
+
     const form = document.getElementById('richardsonForm');
     const resultsDiv = document.getElementById('results');
     const errorDiv = document.getElementById('error-message');
@@ -56,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const headerRow = document.getElementById('table-header');
         headerRow.innerHTML = '<th>h</th>';
         for (let i = 0; i < data.table[0].length; i++) {
-            // FIXED: Using standard HTML sub tags instead of dynamic unicode escapes
             headerRow.innerHTML += `<th>D<sub>${i}</sub></th>`;
         }
         
